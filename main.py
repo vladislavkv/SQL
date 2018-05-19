@@ -11,17 +11,24 @@ cursor=conn.cursor()
 
 #print(result.fetchall())
 
-print('Enter "1" for Sign in, "2" for Sign up')
-a=int(input())
+while True:
+    a=int(input('Enter "1" for Sign in, "2" for Sign up: '))
 
-if a==1:
-    login=input('Login: ')
-    password=input('Password: ')
-    result=cursor.execute('Select * from users where login="%s" and password="%s"'%(login,password)).fetchone()
-    if result is not None:
-        print('Welcome!')
-    else:
-        print('Incorrect login or password!')
+    if a==1:
+        login=input('Login: ')
+        password=input('Password: ')
+        result=cursor.execute('Select * from users where login="%s" and password="%s"'%(login,password)).fetchone()
+        if result is not None:
+            print('Welcome!')
+        else:
+            print('Incorrect login or password!')
+    elif a==2:
+        login=input('Придумайте логин: ')
+        password=input('Придумайте пароль: ')
+        email=input('Введите email: ')
+        first_name=input('Введите Ваше имя: ')
+        last_name=input('Введите Вашу фамилию: ')
+        cursor.execute('Insert into users values ("%s","%s","%s","%s","%s")'%(login,password,email,first_name,last_name))
 
-conn.commit()
-conn.close()
+    conn.commit()
+    conn.close()
